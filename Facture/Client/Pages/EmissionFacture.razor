@@ -1,0 +1,46 @@
+﻿@page "/emission-facture"
+
+<h3>EmissionFacture</h3>
+
+<form>
+    <div class="form-group">
+        <div class="row">
+            <label for="nom" class="col-sm-2 col-form-label col-form-label-lg">Client</label>
+            <input type="text" class="form-control col-sm-10" id="nom" />
+        </div>       
+        <div class="row">
+            <label for="numero" class="col-sm-2 col-form-label col-form-label-lg">Numéro Facture</label>
+            <input type="text" class="form-control col-sm-10" id="numero" />
+        </div>
+    </div>  
+    <div class="form-group">
+        <div class="row">
+            <label for="date-emission" class="col-sm-2 col-form-label col-form-label-lg">Date d'émission</label>
+            <input type="date" class="form-control col-sm-10" id="date-emission" />
+        </div>       
+        <div class="row">
+            <label for="date-reglement" class="col-sm-2 col-form-label col-form-label-lg">Date limite de règlement</label>
+            <input type="date" class="form-control col-sm-10" id="date-reglement" />
+        </div>       
+    </div>   
+    <div class="form-group">
+        <div class="row">
+            <label for="somme-due" class="col-sm-2 col-form-label col-form-label-lg">Somme due</label>
+            <input type="number" class="form-control col-sm-10" id="somme-due" />
+        </div>       
+        <div class="row">
+            <label for="somme-reglee" class="col-sm-2 col-form-label col-form-label-lg">Somme réglée</label>
+            <input type="number" class="form-control col-sm-10" id="somme-reglee" value=0 />
+        </div>      
+        <div class="row">
+            <label for="somme-restante" class="col-sm-2 col-form-label col-form-label-lg">Reste à régler</label>
+            <input type="number" class="form-control col-sm-10" id="somme-restante" />
+        </div>       
+    </div>
+    <button type="submit" class="btn btn-primary">Emettre</button>
+    
+</form>
+
+@code {
+
+}

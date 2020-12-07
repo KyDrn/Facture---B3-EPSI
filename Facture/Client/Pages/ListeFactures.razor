@@ -1,0 +1,101 @@
+﻿@page "/liste-factures"
+@using Facture.Shared
+
+@inject BusinessData data
+
+<h3>ListeFactures</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nom Client</th>
+            <th scope="col">Numéro facture</th>
+            <th scope="col">Date Emission</th>
+            <th scope="col">Date Reglement</th>
+            <th scope="col">Somme Due</th>
+            <th scope="col">Somme Réglée</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var facture in listeFactures)
+        {
+        <tr>
+            <td>@facture.NomClient</td>
+            <td>@facture.NumeroFacture</td>
+            <td>@facture.DateEmission.ToLongDateString()</td>
+            <td>@facture.DateReglement.ToLongDateString()</td>
+            <td>@facture.SommeDue</td>
+            <td>@facture.SommeReglee</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nombres Factures Mois</th>
+            <th scope="col">Chiffre d'affaires attendu Mois</th>
+            <th scope="col">Chiffre d'affaire réel</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@getNombresFacturesAReglerMois()</td>
+            <td>@getChiffreAffairesAttenduMois()</td>
+            <td>@getChiffreAffairesReelMois()</td>
+           </tr>
+    </tbody>
+</table>
+
+@code {
+
+    static BusinessData facture01 = new BusinessData("Manu Macaron", "01", new DateTime(2020, 12, 01), new DateTime(2020, 12, 02), 1000, 0);
+    static BusinessData facture02 = new BusinessData("Jean CasseTete", "02", new DateTime(2020, 12, 01), new DateTime(2020, 12, 03), 750, 250);
+    static BusinessData facture03 = new BusinessData("JeanMi Blanquette", "03", new DateTime(2020, 12, 01), new DateTime(2020, 12, 04), 10, 9);
+
+    private BusinessData[] listeFactures = new BusinessData[] { facture01, facture02, facture03 };
+
+
+    public int getNombresFacturesAReglerMois()
+    {
+        int temp_nbr = 0;
+        DateTime now = DateTime.Now;
+        foreach (BusinessData facture in listeFactures) {
+            if (facture.DateReglement.Year == now.Year && facture.DateReglement.Month == now.Month)
+            {
+                temp_nbr++;
+            }
+        }
+        return temp_nbr;
+    }
+
+    public double getChiffreAffairesAttenduMois()
+    {
+        double temp_ca = 0;
+        DateTime now = DateTime.Now;
+        foreach (BusinessData facture in listeFactures)
+        {
+            if (facture.DateReglement.Year == now.Year && facture.DateReglement.Month == now.Month)
+            {
+                temp_ca += facture.SommeDue;
+            }
+        }
+        return temp_ca;
+    }
+
+    public double getChiffreAffairesReelMois()
+    {
+        double temp_ca = 0;
+        DateTime now = DateTime.Now;
+        foreach (BusinessData facture in listeFactures)
+        {
+            if (facture.DateReglement.Year == now.Year && facture.DateReglement.Month == now.Month)
+            {
+                temp_ca += facture.SommeReglee;
+            }
+        }
+        return temp_ca;
+    }
+
+}
